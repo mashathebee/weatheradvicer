@@ -1,9 +1,11 @@
 import requests
 
-def main():
-    api_key = "9ada850fd02995feb028af7aa07b1442"
-    url = "http://api.openweathermap.org/data/2.5/weather?q={city}&APPID={key}"
-    url_formatted = url.format(city="Sydney", key=api_key)
+api_key = "9ada850fd02995feb028af7aa07b1442-"
+url = "http://api.openweathermap.org/data/2.5/weather?q={city}&APPID={key}"
+url_formatted = url.format(city="Sydney", key=api_key)
+
+
+def get_temp():
     r = requests.get(url_formatted)
     if r.status_code != 200:
         raise Exception("Cannot access API!")
@@ -14,7 +16,11 @@ def main():
 
     temp_calvin = response_dict["main"]["temp"]
     temp = round(temp_calvin - 273)
+    return temp
 
+
+def main():
+    temp = get_temp()
     if temp >= 16:
         print("Today is a nice day to go out!")
     else:
